@@ -36,6 +36,36 @@ h2{font-size:clamp(25px,3.7vw,38px);line-height:1.2;margin:8px 0 20px}.option{di
 }
 .copymsg{margin-top:10px;color:#166534;font-weight:700}
 
+
+.submitbox{
+  margin:24px 0 10px;
+  padding:22px;
+  border-radius:20px;
+  background:#ecfdf5;
+  border:3px solid #86efac;
+  text-align:center;
+}
+.submitbtn{
+  width:100%;
+  max-width:640px;
+  padding:18px 24px;
+  border:0;
+  border-radius:16px;
+  background:linear-gradient(90deg,#16a34a,#22c55e);
+  color:white;
+  font-size:22px;
+  font-weight:900;
+  cursor:pointer;
+  box-shadow:0 6px 0 #15803d;
+}
+.submitbtn:hover{filter:brightness(1.04)}
+.submitnote{
+  margin-top:12px;
+  color:#166534;
+  font-weight:700;
+  line-height:1.4;
+}
+
 </style>
 </head>
 <body>
@@ -53,13 +83,17 @@ function shuffle(a){const b=[...a];for(let i=b.length-1;i>0;i--){const j=Math.fl
 function startScreen(){
 app.innerHTML=`<h2>🎯 Készen állsz?</h2><p>15 véletlenszerű kérdést kapsz. Minden helyes válasz <b>2 pontot</b> ér.</p>
 <div class="intro-grid"><div class="tile"><b>15</b>kérdés</div><div class="tile"><b>30</b>max. pont</div><div class="tile"><b>🏆</b>eredmény a végén</div></div>
-<p><b>Írd be a keresztneved vagy beceneved:</b></p><input id="name" maxlength="24" placeholder="Pl. Anna">
+<p><b>Írd be a teljes neved:</b></p><input id="name" maxlength="60" placeholder="Pl. Kiss Anna">
 <p><b>Írd be az osztályodat:</b></p>
 <input id="className" maxlength="12" placeholder="Pl. 6.a">
-<div class="actions"><button class="primary" id="start">Játék indítása</button></div><p class="small">A név és az eredmény csak ezen a gépen kerül eltárolásra.</p>`;
+<div class="actions"><button class="primary" id="start">Játék indítása</button></div><p class="small">A teljes nevedet azért kérjük, hogy a tanár azonosítani tudja az eredményedet. Az eredmény beküldésekor a neved és az osztályod a tanár Google Űrlapjára kerül.</p>`;
 document.getElementById('start').onclick=()=>{const n=document.getElementById('name').value.trim();
 const c=document.getElementById('className').value.trim();
-if(!n){alert('Írj be egy nevet vagy becenevet!');return}
+if(!n){alert('Írd be a teljes neved!');return}
+if(n.split(/\s+/).filter(Boolean).length < 2){
+  alert('Kérlek, a teljes nevedet add meg! Például: Kiss Anna');
+  return;
+}
 if(!c){alert('Írd be az osztályodat is! Például: 6.a');return}
 player=n;studentClass=c;questions=shuffle(ALL).slice(0,TOTAL);index=0;score=0;showQuestion();};}
 
@@ -96,6 +130,17 @@ function copyResult(text){
   }
 }
 
+
+function buildGoogleFormUrl(name,className,score,pct,code){
+  const base='https://docs.google.com/forms/d/e/1FAIpQLSeE-bCUGOHeJUbketFy1ZdjVepMYdADJYOcZAWEKKlw3sN45A/viewform?usp=pp_url';
+  return base
+    + '&entry.738218148=' + encodeURIComponent(name)
+    + '&entry.881771769=' + encodeURIComponent(className)
+    + '&entry.1287018993=' + encodeURIComponent(score)
+    + '&entry.440784322=' + encodeURIComponent(pct)
+    + '&entry.1267117160=' + encodeURIComponent(code);
+}
+
 function finish(){
   const ranks=saveRank();
   const pct=Math.round(score/(TOTAL*POINTS)*100);
@@ -107,6 +152,7 @@ function finish(){
   const place=ranks.findIndex(r=>r.name===player&&r.score===score)+1;
   const code=makeCode(player,score);
   const resultText=`Digitális Kihívás – ${player} – ${studentClass}: ${score}/${TOTAL*POINTS} pont (${pct}%) – kód: ${code}`;
+  const formUrl=buildGoogleFormUrl(player,studentClass,score,pct,code);
 
   app.innerHTML=`<div class="result">
     <div class="medal">${medal}</div>
@@ -127,13 +173,23 @@ function finish(){
     <h3>🏅 Toplista ezen a gépen</h3>
     ${ranks.map((r,i)=>`<div class="rankrow"><span>${i+1}. ${r.name} <span class="small">(${r.className||'–'})</span></span><b>${r.score} pont</b></div>`).join('')}
   </div>
+  <div class="submitbox">
+    <button class="submitbtn" id="submitResult">📨 EREDMÉNY BEKÜLDÉSE A TANÁRNAK</button>
+    <div class="submitnote">
+      A megnyíló Google Űrlapon az adataid már ki lesznek töltve.<br>
+      Ott csak a <b>Küldés</b> gombot kell megnyomnod!
+    </div>
+  </div>
   <div class="actions">
     <button class="primary" id="again">Új játék</button>
     <button class="secondary" id="reset">Toplista törlése ezen a gépen</button>
   </div>
-  <p class="small">Az eredménykódot és a pontszámot felírhatjátok a táblára vagy bemondhatjátok a tanárnak. A helyi toplista továbbra is csak ezen a gépen tárolódik.</p>`;
+  <p class="small">Az eredményedet a zöld gombbal küldd be a tanárnak. A helyi toplista továbbra is csak ezen a gépen tárolódik.</p>`;
 
   document.getElementById('copy').onclick=()=>copyResult(resultText);
+  document.getElementById('submitResult').onclick=()=>{
+    window.open(formUrl,'_blank');
+  };
   document.getElementById('again').onclick=startScreen;
   document.getElementById('reset').onclick=()=>{
     if(confirm('Biztosan törlöd az ezen a gépen tárolt toplistát?')){
