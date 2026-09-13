@@ -18,6 +18,24 @@ h2{font-size:clamp(25px,3.7vw,38px);line-height:1.2;margin:8px 0 20px}.option{di
 .intro-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:22px 0}.tile{background:#f8fafc;border:1px solid #e2e8f0;border-radius:18px;padding:16px;text-align:center}.tile b{display:block;font-size:25px;margin-bottom:5px}
 .result{text-align:center}.result .big{font-size:64px;font-weight:900;color:var(--blue)}.medal{font-size:78px}.rankbox{background:#f8fafc;border-radius:18px;padding:18px;margin:20px 0;text-align:left}.rankrow{display:flex;justify-content:space-between;padding:9px 4px;border-bottom:1px solid #e2e8f0}.small{color:var(--muted);font-size:14px}
 @media(max-width:680px){.intro-grid{grid-template-columns:1fr}.card{padding:20px}}
+
+.resultcard{
+  margin:24px auto;
+  padding:24px;
+  max-width:620px;
+  border-radius:22px;
+  background:linear-gradient(135deg,#eff6ff,#ecfeff);
+  border:3px solid #93c5fd;
+  box-shadow:0 12px 28px #1e3a8a18;
+}
+.resultcard .name{font-size:30px;font-weight:900;color:#1e3a8a;margin-bottom:8px}
+.resultcard .scoreline{font-size:42px;font-weight:900;color:#0f766e}
+.resultcode{
+  display:inline-block;margin-top:14px;padding:10px 16px;border-radius:12px;
+  background:#0f172a;color:#fff;font-size:22px;font-weight:800;letter-spacing:1px
+}
+.copymsg{margin-top:10px;color:#166534;font-weight:700}
+
 </style>
 </head>
 <body>
@@ -28,7 +46,7 @@ h2{font-size:clamp(25px,3.7vw,38px);line-height:1.2;margin:8px 0 20px}.option{di
 <script>
 const ALL=[{"q": "Melyik eszköz tárolja hosszabb távon a fájlokat a számítógépben?", "options": ["RAM", "SSD vagy merevlemez", "Processzor", "Billentyűzet"], "answer": 1, "explain": "Az SSD vagy a merevlemez tartósan tárolja a fájlokat. A RAM csak ideiglenes munkamemória."}, {"q": "Melyik fájlnév a legjobb egy beadandó elmentéséhez?", "options": ["ujdokumentum1", "valami", "tortenelem_beadando_7b_kissanna", "asdfgh"], "answer": 2, "explain": "A beszédes fájlnév segít később gyorsan megtalálni, mi van a fájlban és kihez tartozik."}, {"q": "Mit jelent az, hogy egy fájlt a Lomtárba helyezel?", "options": ["Azonnal és végleg törlődik", "Ideiglenesen törlésre kerül, de még visszaállítható lehet", "Feltöltődik az internetre", "Másolat készül róla"], "answer": 1, "explain": "A Lomtárból a fájl általában még visszaállítható, amíg a Lomtárat ki nem ürítik."}, {"q": "Melyik jelszó a legerősebb?", "options": ["12345678", "anna2012", "Kutya", "T7!mQ2#zL9"], "answer": 3, "explain": "Az erős jelszó hosszú, nehezen kitalálható, és többféle karaktert tartalmaz."}, {"q": "Mit érdemes tenni, ha ismeretlen feladótól gyanús linket kapsz e-mailben?", "options": ["Azonnal rákattintani", "Továbbküldeni mindenkinek", "Nem megnyitni, és szükség esetén felnőttnek vagy tanárnak jelezni", "Megadni rajta a jelszavadat"], "answer": 2, "explain": "A gyanús link adathalász oldalra vagy kártevőhöz vezethet."}, {"q": "Mi a phishing, magyarul adathalászat?", "options": ["Online horgászjáték", "Olyan csalás, amely személyes adatokat vagy jelszót próbál megszerezni", "Fájlok tömörítése", "Videók vágása"], "answer": 1, "explain": "Az adathalászat célja, hogy megtévesszen és érzékeny adatokat szerezzen meg tőled."}, {"q": "Melyik adatot nem érdemes nyilvánosan megosztani?", "options": ["Kedvenc tantárgy", "Lakóhely pontos címe", "Kedvenc szín", "Kedvenc sport"], "answer": 1, "explain": "A pontos lakcím személyes adat, amit nem érdemes nyilvánosan megosztani."}, {"q": "Mi az a böngésző?", "options": ["Olyan program, amellyel weboldalakat nyitunk meg", "Képszerkesztő program", "Nyomtatóvezérlő", "Fájltömörítő eszköz"], "answer": 0, "explain": "A Chrome, Firefox, Edge és Safari például böngészők."}, {"q": "Melyik keresés a leghatékonyabb, ha egy pontos témára keresel?", "options": ["iskola", "valami a vízről", "a víz körforgása 6. osztály", "internet"], "answer": 2, "explain": "A pontos kulcsszavak gyorsabban vezetnek releváns találatokhoz."}, {"q": "Mit jelent, ha egy webcím HTTPS-sel kezdődik?", "options": ["A kapcsolat titkosított", "A weboldal biztosan igazat ír", "A weboldal ingyenes", "A weboldal nem tartalmaz reklámot"], "answer": 0, "explain": "A HTTPS titkosított kapcsolatot jelent, de önmagában nem garantálja, hogy az oldal tartalma megbízható."}, {"q": "Melyik forrás a legmegbízhatóbb egy iskolai kutatáshoz?", "options": ["Egy névtelen komment", "Egy hivatalos intézmény vagy ismert szakmai oldal", "Egy reklám", "Egy véletlen közösségi médiás bejegyzés"], "answer": 1, "explain": "A hivatalos és szakmai források általában ellenőrizhetőbbek és hitelesebbek."}, {"q": "Mit jelent a másolás és beillesztés billentyűparancsa Windows alatt?", "options": ["Ctrl+C és Ctrl+V", "Ctrl+P és Ctrl+S", "Ctrl+Z és Ctrl+Y", "Alt+F4 és Enter"], "answer": 0, "explain": "Ctrl+C másol, Ctrl+V beilleszt."}, {"q": "Mire jó a Ctrl+Z billentyűparancs a legtöbb programban?", "options": ["Mentésre", "Visszavonásra", "Nyomtatásra", "Bezárásra"], "answer": 1, "explain": "A Ctrl+Z az utolsó művelet visszavonására szolgál."}, {"q": "Melyik állítás igaz a felhőalapú tárhelyre?", "options": ["Csak egyetlen gépen érhető el", "Interneten keresztül több eszközről is elérhető lehet", "Nem lehet benne fájlokat tárolni", "Mindig ingyenes és korlátlan"], "answer": 1, "explain": "A felhőben tárolt fájlokat internetkapcsolattal több eszközről is elérheted."}, {"q": "Melyik a legjobb megoldás, ha egy prezentációs dián túl sok a szöveg?", "options": ["Még kisebb betűméret", "Még több szöveg hozzáadása", "A lényeg kiemelése rövid pontokban és megfelelő képekkel", "Minden szöveg félkövérre állítása"], "answer": 2, "explain": "A jó dia áttekinthető, kevés szöveget és jól megválasztott vizuális elemeket használ."}, {"q": "Mire szolgál a táblázatkezelő program?", "options": ["Adatok rendezésére, számolására és diagramok készítésére", "Csak képek rajzolására", "Csak videók lejátszására", "Csak e-mailek írására"], "answer": 0, "explain": "A táblázatkezelővel adatokat rendezhetsz, képletekkel számolhatsz és diagramokat készíthetsz."}, {"q": "Melyik képlet adja össze az A1 és A2 cella értékét egy táblázatkezelőben?", "options": ["A1+A2", "=A1+A2", "ADD A1 A2", "SUM A1 A2"], "answer": 1, "explain": "A képletek általában egyenlőségjellel kezdődnek."}, {"q": "Melyik formátumot használják gyakran képekhez?", "options": [".jpg", ".mp3", ".xlsx", ".pptx"], "answer": 0, "explain": "A .jpg gyakori képformátum."}, {"q": "Melyik formátum kapcsolódik leginkább prezentációhoz?", "options": [".pptx", ".mp3", ".zip", ".jpg"], "answer": 0, "explain": "A .pptx a Microsoft PowerPoint egyik gyakori prezentációs formátuma."}, {"q": "Mi történik, ha tömörítesz több fájlt egy ZIP-fájlba?", "options": ["A fájlok automatikusan törlődnek", "Egy csomagba kerülnek, gyakran kisebb méretben", "Minden fájl képpé alakul", "Az internetre kerülnek"], "answer": 1, "explain": "A ZIP egy vagy több fájlt egyetlen tömörített csomagba rendezhet."}, {"q": "Mi az operációs rendszer feladata?", "options": ["A számítógép hardverének és programjainak működtetése", "Csak internetezés", "Csak szövegírás", "Csak játékok futtatása"], "answer": 0, "explain": "Az operációs rendszer kezeli a számítógép erőforrásait és lehetővé teszi a programok futását."}, {"q": "Melyik ezek közül operációs rendszer?", "options": ["Windows", "PowerPoint", "Chrome", "YouTube"], "answer": 0, "explain": "A Windows operációs rendszer."}, {"q": "Mit jelent a digitális lábnyom?", "options": ["A billentyűzeten maradó ujjlenyomat", "Az internetes tevékenységeink után maradó adatok és nyomok összessége", "A számítógép sorozatszáma", "Egy vírus neve"], "answer": 1, "explain": "A posztok, keresések, regisztrációk és más online tevékenységek digitális nyomokat hagyhatnak."}, {"q": "Mi a netikett?", "options": ["Internetes illemtan és viselkedési szabályok", "Egy vírusirtó", "Weboldalkészítő program", "Képformátum"], "answer": 0, "explain": "A netikett az online kommunikáció kulturált szabályait jelenti."}, {"q": "Mit érdemes tenni, ha valaki bántó üzeneteket küld neked online?", "options": ["Visszaírni még bántóbban", "Bizonyítékot megőrizni, letiltani és segítséget kérni", "Mindenkinek továbbküldeni", "Megadni neki a jelszavadat"], "answer": 1, "explain": "A bántó üzeneteket érdemes dokumentálni, a küldőt letiltani és felnőtt segítségét kérni."}, {"q": "Miért fontos frissíteni a programokat?", "options": ["Mert mindig más lesz a háttérkép", "Mert a frissítések hibákat és biztonsági réseket is javíthatnak", "Mert ettől lesz gyorsabb az internet minden esetben", "Mert a fájlok automatikusan kisebbek lesznek"], "answer": 1, "explain": "A frissítések gyakran biztonsági és működési hibákat javítanak."}, {"q": "Mit jelent az, hogy egy kép szerzői jogvédelem alatt állhat?", "options": ["Bárki bárhol szabadon használhatja", "A felhasználására szabályok és engedélyek vonatkozhatnak", "Nem lehet megnyitni", "Csak fekete-fehér lehet"], "answer": 1, "explain": "Nem minden interneten talált kép használható fel szabadon."}, {"q": "Melyik a legjobb eljárás egy interneten talált kép iskolai felhasználásakor?", "options": ["Mindig úgy tenni, mintha saját lenne", "Ellenőrizni a felhasználási feltételeket és szükség esetén megjelölni a forrást", "Levágni róla a szerző nevét", "Csak képernyőfotót készíteni róla"], "answer": 1, "explain": "Fontos tiszteletben tartani a szerzői jogokat és a forrásmegjelölést."}, {"q": "Mire jó egy diagram?", "options": ["Adatok vizuális bemutatására", "Jelszavak tárolására", "Fájlok törlésére", "Internetsebesség növelésére"], "answer": 0, "explain": "A diagram segít gyorsan átlátni az adatok közötti különbségeket és összefüggéseket."}, {"q": "Melyik viselkedés helyes videóhívás vagy online óra közben?", "options": ["Mások szavába vágni", "A mikrofont szükség esetén némítani és kulturáltan kommunikálni", "Ismeretleneket meghívni", "Mások képét engedély nélkül felvenni"], "answer": 1, "explain": "Az online órán is fontos a kulturált kommunikáció és mások tisztelete."}];
 const app=document.getElementById('app');
-let player='',questions=[],index=0,score=0,answered=false;
+let player='',studentClass='',questions=[],index=0,score=0,answered=false;
 const TOTAL=15,POINTS=2;
 
 function shuffle(a){const b=[...a];for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];}return b;}
@@ -36,8 +54,14 @@ function startScreen(){
 app.innerHTML=`<h2>🎯 Készen állsz?</h2><p>15 véletlenszerű kérdést kapsz. Minden helyes válasz <b>2 pontot</b> ér.</p>
 <div class="intro-grid"><div class="tile"><b>15</b>kérdés</div><div class="tile"><b>30</b>max. pont</div><div class="tile"><b>🏆</b>eredmény a végén</div></div>
 <p><b>Írd be a keresztneved vagy beceneved:</b></p><input id="name" maxlength="24" placeholder="Pl. Anna">
+<p><b>Írd be az osztályodat:</b></p>
+<input id="className" maxlength="12" placeholder="Pl. 6.a">
 <div class="actions"><button class="primary" id="start">Játék indítása</button></div><p class="small">A név és az eredmény csak ezen a gépen kerül eltárolásra.</p>`;
-document.getElementById('start').onclick=()=>{const n=document.getElementById('name').value.trim();if(!n){alert('Írj be egy nevet vagy becenevet!');return}player=n;questions=shuffle(ALL).slice(0,TOTAL);index=0;score=0;showQuestion();};}
+document.getElementById('start').onclick=()=>{const n=document.getElementById('name').value.trim();
+const c=document.getElementById('className').value.trim();
+if(!n){alert('Írj be egy nevet vagy becenevet!');return}
+if(!c){alert('Írd be az osztályodat is! Például: 6.a');return}
+player=n;studentClass=c;questions=shuffle(ALL).slice(0,TOTAL);index=0;score=0;showQuestion();};}
 
 function showQuestion(){answered=false;const q=questions[index];const pct=(index/TOTAL)*100;
 app.innerHTML=`<div class="topbar"><span class="badge">Kérdés ${index+1} / ${TOTAL}</span><span class="score">⭐ ${score} pont</span></div>
@@ -55,15 +79,69 @@ else{buttons[i].classList.add('wrong');fb.className='feedback bad';fb.innerHTML=
 document.querySelector('.score').textContent=`⭐ ${score} pont`;document.getElementById('next').style.display='inline-block';}
 
 function loadRanks(){try{return JSON.parse(localStorage.getItem('digitalisKihivasRanks')||'[]');}catch(e){return [];}}
-function saveRank(){const r=loadRanks();r.push({name:player,score:score,date:new Date().toLocaleDateString('hu-HU')});r.sort((a,b)=>b.score-a.score);localStorage.setItem('digitalisKihivasRanks',JSON.stringify(r.slice(0,20)));return r.slice(0,10);}
-function finish(){const ranks=saveRank();const pct=Math.round(score/(TOTAL*POINTS)*100);let medal='🥉',title='Szép munka!';if(pct>=90){medal='🏆';title='Digitális bajnok!';}else if(pct>=75){medal='🥇';title='Nagyon ügyes!';}else if(pct>=60){medal='🥈';title='Jó eredmény!';}
-const place=ranks.findIndex(r=>r.name===player&&r.score===score)+1;
-app.innerHTML=`<div class="result"><div class="medal">${medal}</div><h2>${title}</h2><p><b>${player}</b>, az eredményed:</p><div class="big">${score} / ${TOTAL*POINTS}</div><p>${pct}%</p><p><b>Helyezés ezen a gépen:</b> ${place>0?place+'. hely':'—'}</p></div>
-<div class="rankbox"><h3>🏅 Toplista ezen a gépen</h3>${ranks.map((r,i)=>`<div class="rankrow"><span>${i+1}. ${r.name}</span><b>${r.score} pont</b></div>`).join('')}</div>
-<div class="actions"><button class="primary" id="again">Új játék</button><button class="secondary" id="reset">Toplista törlése ezen a gépen</button></div>
-<p class="small">A toplista böngészőnként és gépenként külön tárolódik.</p>`;
-document.getElementById('again').onclick=startScreen;
-document.getElementById('reset').onclick=()=>{if(confirm('Biztosan törlöd az ezen a gépen tárolt toplistát?')){localStorage.removeItem('digitalisKihivasRanks');startScreen();}};}
+function saveRank(){const r=loadRanks();r.push({name:player,className:studentClass,score:score,date:new Date().toLocaleDateString('hu-HU')});r.sort((a,b)=>b.score-a.score);localStorage.setItem('digitalisKihivasRanks',JSON.stringify(r.slice(0,20)));return r.slice(0,10);}
+
+function makeCode(name,score){
+  const clean=(name||'JATEKOS').toUpperCase().replace(/[^A-ZÁÉÍÓÖŐÚÜŰ0-9]/g,'').slice(0,6)||'JATEK';
+  return clean+'-'+String(score).padStart(2,'0');
+}
+function copyResult(text){
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(()=>{
+      const m=document.getElementById('copymsg');
+      if(m)m.textContent='✅ Eredmény kimásolva!';
+    });
+  }else{
+    prompt('Másold ki ezt az eredményt:',text);
+  }
+}
+
+function finish(){
+  const ranks=saveRank();
+  const pct=Math.round(score/(TOTAL*POINTS)*100);
+  let medal='🥉',title='Szép munka!';
+  if(pct>=90){medal='🏆';title='Digitális bajnok!';}
+  else if(pct>=75){medal='🥇';title='Nagyon ügyes!';}
+  else if(pct>=60){medal='🥈';title='Jó eredmény!';}
+
+  const place=ranks.findIndex(r=>r.name===player&&r.score===score)+1;
+  const code=makeCode(player,score);
+  const resultText=`Digitális Kihívás – ${player} – ${studentClass}: ${score}/${TOTAL*POINTS} pont (${pct}%) – kód: ${code}`;
+
+  app.innerHTML=`<div class="result">
+    <div class="medal">${medal}</div>
+    <h2>${title}</h2>
+    <div class="resultcard">
+      <div class="name">${player} – ${studentClass}</div>
+      <div class="scoreline">${score} / ${TOTAL*POINTS} pont</div>
+      <p><b>${pct}%</b></p>
+      <p>Helyezés ezen a gépen: <b>${place>0?place+'. hely':'—'}</b></p>
+      <div class="resultcode">Kód: ${code}</div>
+      <div class="actions" style="justify-content:center">
+        <button class="primary" id="copy">Eredmény másolása</button>
+      </div>
+      <div id="copymsg" class="copymsg"></div>
+    </div>
+  </div>
+  <div class="rankbox">
+    <h3>🏅 Toplista ezen a gépen</h3>
+    ${ranks.map((r,i)=>`<div class="rankrow"><span>${i+1}. ${r.name} <span class="small">(${r.className||'–'})</span></span><b>${r.score} pont</b></div>`).join('')}
+  </div>
+  <div class="actions">
+    <button class="primary" id="again">Új játék</button>
+    <button class="secondary" id="reset">Toplista törlése ezen a gépen</button>
+  </div>
+  <p class="small">Az eredménykódot és a pontszámot felírhatjátok a táblára vagy bemondhatjátok a tanárnak. A helyi toplista továbbra is csak ezen a gépen tárolódik.</p>`;
+
+  document.getElementById('copy').onclick=()=>copyResult(resultText);
+  document.getElementById('again').onclick=startScreen;
+  document.getElementById('reset').onclick=()=>{
+    if(confirm('Biztosan törlöd az ezen a gépen tárolt toplistát?')){
+      localStorage.removeItem('digitalisKihivasRanks');
+      startScreen();
+    }
+  };
+}
 startScreen();
 </script>
 </body></html>
